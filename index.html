@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambassador Kitchen & Catering Services Limited</title>
+    <link rel="icon" type="image/png" href="frontend/logo.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #d4af37; /* Gold color */
+            --secondary-color: #333;
+            --accent-color: Gold; /* Brown */
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-container {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .logo-left {
+            height: 80px;
+            display: flex;
+            align-items: left;
+        }
+
+        .logo-img {
+            height: 60%;
+            width: auto;
+            max-width: 180px;
+        }
+
+        .brand-center {
+            text-align: center;
+            justify-self: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .brand-center h1 {
+            font-size: 40px;
+            font-family: 'Anavio', serif;
+            letter-spacing: 1px;
+            color: #070707;
+            margin: 0 auto;
+            white-space: normal;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .brand-center h2 {
+            font-size: 24px;
+            font-family: 'Anavio', serif;
+            font-weight: normal;
+            letter-spacing: 1px;
+            color: rgb(13, 13, 13);
+            margin: 0 auto;
+            white-space: normal;
+            text-align: center;
+        }
+
+        /* Removed custom font-face due to missing files */
+
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            justify-self: end;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #090909;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                grid-template-columns: auto 1fr;
+                grid-template-areas: 
+                    "logo brand"
+                    "nav nav";
+            }
+            
+            .logo-left { grid-area: logo; }
+            .brand-center { grid-area: brand; text-align: left; }
+            .main-nav { 
+                grid-area: nav; 
+                justify-self: center;
+                margin-top: 15px;
+            }
+            
+            .brand-center h1 {
+                font-size: 20px;
+            }
+            .brand-center h2 {
+                font-size: 15px;
+            }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-image: url('frontpic.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: rgb(247, 244, 244);
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+            cursor: pointer;
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        /* Form message styles */
+        .form-message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: 500;
+            border-left: 4px solid #28a745;
+            background-color: #d4edda;
+            color: #155724;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-message.error {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Menu Section */
+        .menu {
+            padding: 80px 0;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item img, .menu-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+            width: 100%;
+        }
+        
+        .menu-item h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .menu-item p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* -------------------------------------
+           NEW TESTIMONIALS CSS START
+        ------------------------------------- */
+        .testimonials {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--light-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex: 1 1 300px;
+            max-width: 350px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quote-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .client-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .client-role {
+            font-size: 13px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* -------------------------------------
+           NEW TESTIMONIALS CSS END
+        ------------------------------------- */
+        
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-details i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form {
+            flex: 1;
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 99;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128C7E;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-col p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                gap: 15px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo-left">
+                <img src="frontend/logo.png" alt="Logo" class="logo-img">
+            </div>
+            
+            <div class="brand-center">
+                <h1>AMBASSADOR</h1> 
+                <h2>Kitchen & Catering Services Limited</h2>
+            </div>
+            
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Exquisite Catering Services</h1>
+            <p>Experience the finest culinary creations, exceptional meals, and finger licking Naija foods for your special elite events, weddings, and corporate functions.</p>
+            <a href="#contact" class="btn">Book Now</a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Ambassador Kitchen & Catering has been serving exquisite culinary experiences, exceptional meals and finger licking Nigerian foods for over 15 years. Our team of professional chefs brings passion and creativity to every event.</p>
+                    <p>We specialize in customized menus tailored to your specific needs, whether it's an intimate gathering or a grand celebration. Our commitment to quality ingredients and exceptional service sets us apart.</p>
+                    <p>From traditional favorites to innovative contemporary cuisine, we create memorable dining experiences that delight all senses.</p>
+                </div>
+                <div class="about-image">
+                    <img src="use11.jpg" alt="11">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="wedding.png" alt="Wedding Buffet">
+                    <div class="menu-item-content">
+                        <h3>Wedding Package</h3>
+                        <p>Elegant multi-course meals with customizable options for your special day.</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <video controls>
+                        <source src="main.MOV" type="video/mp4">
+                    </video>
+                    <div class="menu-item-content">
+                        <h3>Elite Birthday Experience</h3>
+                        <p>Exclusive outdoor catering for your personalized special events like birthdays.</p>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="corporate.jpg" alt="corporate">
+                    <div class="menu-item-content">
+                        <h3>Corporate Events</h3>
+                        <p>Professional catering solutions for meetings, conferences, and corporate parties.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Our Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="friday1.jpg" alt="friday1">
+                </div>
+                <div class="gallery-item">
+                    <video controls>
+                        <source src="celebrate.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <img src="use3.jpg" alt="3">
+                </div>
+                <div class="gallery-item">
+                    <img src="use1.jpg" alt="1">
+                </div>
+                <div class="gallery-item">
+                    <img src="use9.jpg" alt="9">
+                </div>
+                <div class="gallery-item">
+                    <img src="use2.jpg" alt="2">
+                </div>
+                <div class="gallery-item">
+                    <video controls>
+                        <source src="legend.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <img src="friday2.jpg" alt="friday2">
+                </div>
+                <div class="gallery-item">
+                    <img src="wedding1.png" alt="Wedding 1">
+                </div>
+                <div class="gallery-item">
+                    <video controls>
+                        <source src="use5.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="gallery-item">
+                    <img src="use6.jpg" alt="6">
+                </div>
+                <div class="gallery-item">
+                    <img src="use8.jpg" alt="8">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="partners">
+        <div class="container">
+            <h2 class="section-title">Clients we Serve</h2>
+            <div class="testimonials-grid" style="flex-wrap:wrap;justify-content:center;gap:40px;align-items:center;">
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/aradel.png" alt="Aradel Holdings" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">Aradel Holdings</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/bakerhughes.png" alt="Baker Hughes" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">Baker Hughes</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;text-align:center;">
+                    <img src="frontend/partners/bat.png" alt="British American Tobacco" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;display:block;width:100%;">British American Tobacco</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/sap.png" alt="SAP" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">SAP</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/generalelectric.png" alt="General Electric" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">General Electric</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/bovas.png" alt="Bovas" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">Bovas</span>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:center;max-width:180px;">
+                    <img src="frontend/partners/shell.png" alt="Shell" style="height:70px;object-fit:contain;margin-bottom:10px;" />
+                    <span style="font-weight:bold;font-size:1.1em;">Shell</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p>Ready to plan your next event? Contact us for a consultation and quote.</p>
+                    <div class="contact-details">
+                        <div>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Ambassador Kitchen & Catering Service Ltd. 2c, Josephine Fingesi Street, Off Wale Olateju Street, Lekki Phase 1, Lagos.</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-phone"></i>
+                            <span>(+234) 8033304352, 9093322282</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@ambassadorkitchen.com.ng</span>
+                        </div>
+                    </div>
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com/ambassadorkitchen" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/ambassadorkitchen_/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/ambassadorkitchen" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form autocomplete="on">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required autocomplete="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" autocomplete="tel">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-type">Event Type</label>
+                            <input type="text" id="event-type" name="eventType" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required autocomplete="off"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://wa.me/08033304352" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:20px;">
+                <div style="display:flex;align-items:center;justify-content:center;gap:12px;">
+                    <img src="frontend/logo.png" alt="Logo" style="height:40px;" />
+                    <span style="font-size:1.7em;font-weight:bold;text-align:center;line-height:1.1;">Ambassador Kitchen & Catering Services Limited</span>
+                </div>
+                <p style="margin:10px 0 0 0;text-align:center;max-width:600px;">Providing exceptional catering services for all occasions since 2005.</p>
+                <p style="margin:0 0 10px 0;text-align:center;max-width:600px;">Our commitment to quality and service excellence makes us the preferred choice for discerning clients.</p>
+            </div>
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#menu">Our Menu</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Wedding Catering</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                        <li><a href="#">Private Chef</a></li>
+                        <li><a href="#">Buffet Services</a></li>
+                        <li><a href="#">Custom Menus</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Ambassador Kitchen & Catering Services Ltd. 2c, Josephine Fingesi Street, Off Wale Olateju Street, Lekki Phase 1, Lagos. </p>
+                    <p><i class="fas fa-phone"></i> (+234) 8033304352, 9093322282</p>
+                    <p><i class="fas fa-envelope"></i> info@ambassadorkitchen.com.ng</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Ambassador Kitchen & Catering Services Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script>
+// Contact form AJAX handler
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.contact-form form');
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = {
+            name: form.name.value.trim(),
+            email: form.email.value.trim(),
+            phone: form.phone.value.trim(),
+            eventType: form.eventType ? form.eventType.value : form['event-type'].value,
+            message: form.message.value.trim()
+        };
+        // Show sending state
+        const btn = form.querySelector('.btn');
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        // Remove previous message
+        let msgDiv = form.querySelector('.form-message');
+        if (msgDiv) msgDiv.remove();
+        try {
+            const res = await fetch('http://localhost:5002/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            msgDiv = document.createElement('div');
+            msgDiv.className = 'form-message';
+            msgDiv.style.margin = '15px 0';
+            if (res.ok && data.success !== false) {
+                msgDiv.style.color = 'green';
+                msgDiv.textContent = data.message || 'Message sent successfully!';
+                form.reset();
+            } else {
+                msgDiv.style.color = 'red';
+                msgDiv.textContent = data.message || 'Error submitting the form.';
+            }
+            form.insertBefore(msgDiv, btn);
+        } catch (error) {
+            msgDiv = document.createElement('div');
+            msgDiv.className = 'form-message';
+            msgDiv.style.color = 'red';
+            msgDiv.style.margin = '15px 0';
+            msgDiv.textContent = 'Network error. Please try again.';
+            form.insertBefore(msgDiv, btn);
+        } finally {
+            btn.textContent = originalText;
+            btn.disabled = false;
+        }
+    });
+});
+</script>
+
+        </footer>
+    <!-- JavaScript code block moved to script tag below -->
+</body>
+<script>
+// Example: Contact form handler (update selectors and logic as needed)
+// This is a placeholder. If you have a contact form, move this logic to the correct place.
+// Remove this script if not needed.
+//
+// document.addEventListener('DOMContentLoaded', function() {
+//     const contactForm = document.getElementById('contactForm');
+//     if (!contactForm) return;
+//     contactForm.addEventListener('submit', async function(e) {
+//         e.preventDefault();
+//         const formData = {
+//             email: contactForm.email.value
+//             // ...other fields
+//         };
+//         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//         if (!emailRegex.test(formData.email)) {
+//             showMessage('Please enter a valid email address.', 'error');
+//             return;
+//         }
+//         // ...rest of logic
+//     });
+// });
+</script>
+</html>
